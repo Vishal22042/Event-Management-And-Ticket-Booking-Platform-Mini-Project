@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Booking - EventHub</title>
+
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/booking.css">
+</head>
+
+<body>
+
+<header class="navbar">
+
+    <div class="logo-area">
+        <img src="images/common/logo.jpg" alt="EventHub Logo">
+        <span>EventHub</span>
+    </div>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="events.html">Events</a>
+        <a href="tickets.html">Tickets</a>
+        <a href="booking.html" class="active">Booking</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+</header>
+
+<main>
+
+    <section class="booking-section">
+
+        <div class="booking-card">
+
+            <h1>Book Your Ticket</h1>
+
+            <p class="booking-intro">
+                Fill in the details below to continue with your booking.
+            </p>
+
+            <form>
+
+                <label for="name">Full Name</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    required
+                >
+
+                <label for="email">Email Address</label>
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+
+                <label for="event">Select Event</label>
+
+                <select id="event" name="event">
+                    <option>Live Music Festival</option>
+                    <option>Technology Conference</option>
+                    <option>Creative Workshop</option>
+                    <option>Cultural Celebration</option>
+                </select>
+
+                <label for="ticket">Ticket Type</label>
+
+                <select id="ticket" name="ticket">
+                    <option>Regular - ₹499</option>
+                    <option>Premium - ₹999</option>
+                    <option>VIP - ₹1,999</option>
+                </select>
+
+                <label for="quantity">Number of Tickets</label>
+
+                <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min="1"
+                    max="10"
+                    value="1"
+                >
+
+                <button type="submit">
+                    Confirm Booking
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 EventHub. All Rights Reserved.</p>
+</footer>
+
+</body>
+</html>
