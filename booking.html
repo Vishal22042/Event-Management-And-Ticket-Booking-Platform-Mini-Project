@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,9 +42,10 @@
                 Fill in the details below to continue with your booking.
             </p>
 
-            <form>
+            <form action="confirmation.html" method="get">
 
                 <label for="name">Full Name</label>
+
                 <input
                     type="text"
                     id="name"
@@ -53,6 +55,7 @@
                 >
 
                 <label for="email">Email Address</label>
+
                 <input
                     type="email"
                     id="email"
@@ -63,19 +66,35 @@
 
                 <label for="event">Select Event</label>
 
-                <select id="event" name="event">
-                    <option>Live Music Festival</option>
-                    <option>Technology Conference</option>
-                    <option>Creative Workshop</option>
-                    <option>Cultural Celebration</option>
+                <select id="event" name="event" required>
+                    <option value="">Choose an event</option>
+                    <option value="Live Music Festival">
+                        Live Music Festival
+                    </option>
+                    <option value="Technology Conference">
+                        Technology Conference
+                    </option>
+                    <option value="Creative Workshop">
+                        Creative Workshop
+                    </option>
+                    <option value="Cultural Celebration">
+                        Cultural Celebration
+                    </option>
                 </select>
 
                 <label for="ticket">Ticket Type</label>
 
-                <select id="ticket" name="ticket">
-                    <option>Regular - ₹499</option>
-                    <option>Premium - ₹999</option>
-                    <option>VIP - ₹1,999</option>
+                <select id="ticket" name="ticket" required>
+                    <option value="">Choose ticket type</option>
+                    <option value="Regular - ₹499">
+                        Regular - ₹499
+                    </option>
+                    <option value="Premium - ₹999">
+                        Premium - ₹999
+                    </option>
+                    <option value="VIP - ₹1,999">
+                        VIP - ₹1,999
+                    </option>
                 </select>
 
                 <label for="quantity">Number of Tickets</label>
@@ -87,6 +106,7 @@
                     min="1"
                     max="10"
                     value="1"
+                    required
                 >
 
                 <button type="submit">
