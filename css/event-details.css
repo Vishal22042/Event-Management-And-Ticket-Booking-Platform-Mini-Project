@@ -50,3 +50,11 @@
     border-radius: 6px;
     font-weight: bold;
 }
+.details-image { display: block; }
+.book-btn:hover { background: #e66800; }
+@media (max-width: 700px) {
+    .details { margin: 30px auto; padding: 0 16px; }
+    .details-image { height: 250px; }
+    .details-content { padding: 25px 0; }
+    .details-content h1 { font-size: 30px; }
+}

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,9 +37,18 @@
         <p>Find events that match your interests.</p>
     </section>
 
+    <!-- Event Search Bar -->
+    <div class="event-search">
+        <input
+            type="text"
+            id="searchEvent"
+            placeholder="Search events..."
+        >
+    </div>
+
     <section class="events-container">
 
-        <div class="event-card">
+        <div class="event-card" data-event-id="live-music">
             <img src="images/events/live-music.jpg" alt="Live Music Festival">
 
             <div class="event-content">
@@ -50,13 +60,13 @@
                     performances and entertainment.
                 </p>
 
-                <a href="event-details.html" class="event-btn">
+                <a href="event-details.html?event=live-music" class="event-btn">
                     View Details
                 </a>
             </div>
         </div>
 
-        <div class="event-card">
+        <div class="event-card" data-event-id="technology">
             <img src="images/events/tech-conference.jpg" alt="Technology Conference">
 
             <div class="event-content">
@@ -68,13 +78,13 @@
                     and exciting industry ideas.
                 </p>
 
-                <a href="event-details.html" class="event-btn">
+                <a href="event-details.html?event=technology" class="event-btn">
                     View Details
                 </a>
             </div>
         </div>
 
-        <div class="event-card">
+        <div class="event-card" data-event-id="creative-workshop">
             <img src="images/events/creative-workshop.jpg" alt="Creative Workshop">
 
             <div class="event-content">
@@ -86,13 +96,13 @@
                     focused on creativity and learning.
                 </p>
 
-                <a href="event-details.html" class="event-btn">
+                <a href="event-details.html?event=creative-workshop" class="event-btn">
                     View Details
                 </a>
             </div>
         </div>
 
-        <div class="event-card">
+        <div class="event-card" data-event-id="cultural">
             <img src="images/events/cultural-event.jpg" alt="Cultural Event">
 
             <div class="event-content">
@@ -104,7 +114,7 @@
                     and entertainment.
                 </p>
 
-                <a href="event-details.html" class="event-btn">
+                <a href="event-details.html?event=cultural" class="event-btn">
                     View Details
                 </a>
             </div>
@@ -112,11 +122,13 @@
 
     </section>
 
+    <p id="noEventsMessage" hidden style="text-align:center; padding:20px;">No matching events found.</p>
+
 </main>
 
 <footer>
     <p>&copy; 2026 EventHub. All Rights Reserved.</p>
 </footer>
-
+<script src="js/events.js"></script>
 </body>
 </html>
