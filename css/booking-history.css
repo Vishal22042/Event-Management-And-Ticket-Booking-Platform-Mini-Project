@@ -414,3 +414,6 @@ footer p {
         padding: 18px;
     }
 }
+.booking-card h2 { margin-bottom: 14px; color: #111827; }
+.booking-card p { margin: 8px 0; overflow-wrap: anywhere; }
+.empty-bookings { background: #fff; border-radius: 10px; color: #555; }

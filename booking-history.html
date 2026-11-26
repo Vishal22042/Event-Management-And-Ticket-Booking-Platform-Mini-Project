@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
 
     <title>Booking History - EventHub</title>
 
+    <link rel="stylesheet" href="css/common.css">
     <link rel="stylesheet" href="css/booking-history.css">
 </head>
 
@@ -45,125 +47,31 @@
             </p>
 
 
-            <!-- Booking Summary -->
+            <!-- Dynamic Booking Summary -->
+
             <div class="summary">
 
                 <div class="summary-box">
-                    <h3>2</h3>
+                    <h3 id="totalBookings">0</h3>
                     <p>Total Bookings</p>
                 </div>
 
                 <div class="summary-box confirmed-box">
-                    <h3>1</h3>
+                    <h3 id="confirmedBookings">0</h3>
                     <p>Confirmed</p>
                 </div>
 
                 <div class="summary-box pending-box">
-                    <h3>1</h3>
+                    <h3 id="pendingBookings">0</h3>
                     <p>Pending</p>
                 </div>
 
             </div>
 
 
-            <!-- Confirmed Booking -->
-            <div class="booking-card">
+            <!-- Dynamic Booking List -->
 
-                <div class="event-details">
-
-                    <div class="event-image">
-                        <img src="images/events/live-music.jpg"
-                             alt="Live Music Night">
-                    </div>
-
-                    <div class="details">
-
-                        <span class="status confirmed">
-                            ✓ Confirmed
-                        </span>
-
-                        <h2>Live Music Night</h2>
-
-                        <p>
-                            <strong>Booking ID:</strong>
-                            EVH1001
-                        </p>
-
-                        <p>
-                            <strong>Date:</strong>
-                            25 September 2026
-                        </p>
-
-                        <p>
-                            <strong>Ticket:</strong>
-                            Premium
-                        </p>
-
-                        <p>
-                            <strong>Quantity:</strong>
-                            2 Tickets
-                        </p>
-
-                        <p>
-                            <strong>Total:</strong>
-                            ₹2,000
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- Pending Booking -->
-            <div class="booking-card">
-
-                <div class="event-details">
-
-                    <div class="event-image">
-                        <img src="images/events/tech-conference.jpg"
-                             alt="Technology Conference">
-                    </div>
-
-                    <div class="details">
-
-                        <span class="status pending">
-                            ⏳ Pending
-                        </span>
-
-                        <h2>Technology Conference 2026</h2>
-
-                        <p>
-                            <strong>Booking ID:</strong>
-                            EVH1002
-                        </p>
-
-                        <p>
-                            <strong>Date:</strong>
-                            10 October 2026
-                        </p>
-
-                        <p>
-                            <strong>Ticket:</strong>
-                            Regular
-                        </p>
-
-                        <p>
-                            <strong>Quantity:</strong>
-                            1 Ticket
-                        </p>
-
-                        <p>
-                            <strong>Total:</strong>
-                            ₹800
-                        </p>
-
-                    </div>
-
-                </div>
-
-            </div>
+            <div id="bookingList"></div>
 
 
             <!-- Back Buttons -->
@@ -188,6 +96,10 @@
     <footer>
         <p>© 2026 EventHub. All Rights Reserved.</p>
     </footer>
+
+
+    <!-- JavaScript -->
+    <script src="js/booking-history.js"></script>
 
 </body>
 </html>
