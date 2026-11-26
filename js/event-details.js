@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Cultural Celebration",
             image: "images/events/cultural-event.jpg",
             description: "Experience culture, traditions, performances and entertainment in a lively celebration.",
-            date: "2To be announced",
+            date: "To be announced",
             time: "To be announced",
             location: "Jaipur",
             highlights: ["Cultural performances", "Traditional activities", "Local art and culture", "Community celebration"]
