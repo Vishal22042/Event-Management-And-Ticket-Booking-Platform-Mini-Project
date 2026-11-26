@@ -93,3 +93,18 @@
         grid-template-columns: 1fr;
     }
 }
+.contact-form textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: 2px solid rgba(36, 87, 214, .25);
+    border-color: #2457d6;
+}
+#contactResponse {
+    margin-top: 12px;
+    color: #166534;
+    line-height: 1.5;
+}
+.contact-form button:hover { background: #163fa8; }
