@@ -4,19 +4,39 @@ document.addEventListener("DOMContentLoaded", function () {
     if (!details || !message) return;
 
     let booking = null;
-    try {
-        booking = JSON.parse(localStorage.getItem("latestBooking") || "null");
-    } catch (error) {
-        console.error("Could not load the latest booking.", error);
-    }
 
-    if (!booking || typeof booking !== "object") {
-        message.textContent = "No recent booking was found in this browser.";
-        details.textContent = "Please make a booking first to see its confirmation details.";
+    try {
+        const params = new URLSearchParams(window.location.search);
+        const requestedId = params.get("booking");
+        const pendingId = sessionStorage.getItem("pendingBookingId");
+
+        if (!requestedId || !pendingId || requestedId !== pendingId) {
+            throw new Error("No matching booking was submitted in this session.");
+        }
+
+        const savedBookings = JSON.parse(localStorage.getItem("bookings") || "[]");
+        if (!Array.isArray(savedBookings)) {
+            throw new Error("Saved booking data is invalid.");
+        }
+
+        booking = savedBookings.find(function (item) {
+            return item && item.id === requestedId;
+        });
+
+        if (!booking) throw new Error("Booking not found.");
+
+        // Consume the one-time confirmation token.
+        sessionStorage.removeItem("pendingBookingId");
+    } catch (error) {
+        console.warn("Could not load a valid booking confirmation.", error);
+        message.textContent = "No new booking confirmation is available.";
+        details.textContent =
+            "Please complete a booking first. Your previous bookings are available in Booking History.";
         return;
     }
 
-    message.textContent = "Your booking has been saved successfully in this browser.";
+    message.textContent =
+        "Your booking has been saved in this browser. This demo does not process payments.";
 
     const heading = document.createElement("h3");
     heading.textContent = "Booking Details";
@@ -25,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fields = [
         ["Booking ID", booking.id],
         ["Name", booking.name],
+        ["Email", booking.email],
         ["Event", booking.event],
         ["Ticket", booking.ticket],
         ["Quantity", booking.quantity],
@@ -38,7 +59,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const strong = document.createElement("strong");
         strong.textContent = label + ": ";
         paragraph.appendChild(strong);
-        paragraph.appendChild(document.createTextNode(value == null ? "—" : String(value)));
+        paragraph.appendChild(
+            document.createTextNode(value === undefined || value === null ? "—" : String(value))
+        );
         details.appendChild(paragraph);
     });
 });
