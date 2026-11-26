@@ -8,46 +8,49 @@ document.addEventListener("DOMContentLoaded", function () {
     const ticketSelect = document.getElementById("ticket");
     const quantityInput = document.getElementById("quantity");
     const totalPrice = document.getElementById("totalPrice");
+    const MAX_TICKETS = 100;
 
     function readArray(key) {
         try {
-            const value = JSON.parse(localStorage.getItem(key) || "[]");
-            return Array.isArray(value) ? value : [];
+            const parsed = JSON.parse(localStorage.getItem(key) || "[]");
+            return Array.isArray(parsed) ? parsed : [];
         } catch (error) {
             console.error("Could not read saved " + key, error);
             return [];
         }
     }
 
-    
-function calculateTotal() {
-    const option = ticketSelect.options[ticketSelect.selectedIndex];
+    function getSelectedPrice() {
+        const option = ticketSelect.options[ticketSelect.selectedIndex];
+        if (!option || !option.value) return NaN;
+        const price = Number(option.dataset.price);
+        return Number.isFinite(price) && price > 0 ? price : NaN;
+    }
 
-    const price = Number(option && option.dataset.price);
-    const quantity = Number(quantityInput.value);
+    function calculateTotal() {
+        const price = getSelectedPrice();
+        const quantity = Number(quantityInput.value);
+        const validQuantity = Number.isInteger(quantity) &&
+            quantity >= 1 && quantity <= MAX_TICKETS;
 
-    const valid = Number.isFinite(price) &&
-        Number.isInteger(quantity) &&
-        quantity >= 1 &&
-        quantity <= 100;
+        totalPrice.textContent = Number.isFinite(price) && validQuantity
+            ? "Total Amount: ₹" + (price * quantity).toLocaleString("en-IN")
+            : "Total Amount: —";
+    }
 
-    totalPrice.textContent = valid
-        ? "Total Amount: ₹" +
-          (price * quantity).toLocaleString("en-IN")
-        : "Total Amount: —";
-}
-
-
-    // Restore a ticket and/or event selected on the previous page.
+    // Restore selections passed from the Tickets and Event Details pages.
     try {
         const savedTicket = localStorage.getItem("selectedTicket");
         const savedEvent = localStorage.getItem("selectedEvent");
-        if (savedTicket && [...ticketSelect.options].some(o => o.value === savedTicket)) {
-            ticketSelect.value = savedTicket;
-        }
-        if (savedEvent && [...eventSelect.options].some(o => o.value === savedEvent)) {
-            eventSelect.value = savedEvent;
-        }
+
+        if (savedTicket && Array.from(ticketSelect.options).some(function (option) {
+            return option.value === savedTicket;
+        })) ticketSelect.value = savedTicket;
+
+        if (savedEvent && Array.from(eventSelect.options).some(function (option) {
+            return option.value === savedEvent;
+        })) eventSelect.value = savedEvent;
+
         localStorage.removeItem("selectedTicket");
         localStorage.removeItem("selectedEvent");
     } catch (error) {
@@ -56,6 +59,7 @@ function calculateTotal() {
 
     ticketSelect.addEventListener("change", calculateTotal);
     quantityInput.addEventListener("input", calculateTotal);
+    quantityInput.addEventListener("change", calculateTotal);
 
     form.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -63,21 +67,52 @@ function calculateTotal() {
         const name = nameInput.value.trim();
         const email = emailInput.value.trim();
         const quantity = Number(quantityInput.value);
-        const option = ticketSelect.options[ticketSelect.selectedIndex];
-        const price = Number(option && option.dataset.price);
+        const price = getSelectedPrice();
+        const selectedEvent = eventSelect.value;
 
-        if (!name || !email || !emailInput.checkValidity() ||
-            !Number.isInteger(quantity) || quantity < 1 || quantity > 10 ||
-            !Number.isFinite(price) || price <= 0) {
-            alert("Please enter valid details and choose between 1 and 10 tickets.");
+        if (!name) {
+            alert("Please enter your full name.");
+            nameInput.focus();
             return;
+        }
+        if (!email || !emailInput.checkValidity()) {
+            alert("Please enter a valid email address.");
+            emailInput.focus();
+            return;
+        }
+        if (!selectedEvent) {
+            alert("Please select an event.");
+            eventSelect.focus();
+            return;
+        }
+        if (!Number.isFinite(price)) {
+            alert("Please select a valid ticket type.");
+            ticketSelect.focus();
+            return;
+        }
+        if (!Number.isInteger(quantity) || quantity < 1 || quantity > MAX_TICKETS) {
+            alert("Please select between 1 and " + MAX_TICKETS + " tickets.");
+            quantityInput.focus();
+            return;
+        }
+
+        // If a real event date is later added as data-date="YYYY-MM-DD",
+        // prevent booking after that date. Current event dates are unannounced.
+        const selectedOption = eventSelect.options[eventSelect.selectedIndex];
+        const eventDateValue = selectedOption.dataset.date;
+        if (eventDateValue) {
+            const eventDate = new Date(eventDateValue + "T23:59:59");
+            if (Number.isNaN(eventDate.getTime()) || eventDate < new Date()) {
+                alert("This event has already passed or has an invalid date.");
+                return;
+            }
         }
 
         const booking = {
             id: "EVH" + Date.now().toString(),
             name: name,
             email: email,
-            event: eventSelect.value,
+            event: selectedEvent,
             ticket: ticketSelect.value,
             quantity: quantity,
             total: price * quantity,
@@ -90,7 +125,9 @@ function calculateTotal() {
             bookings.push(booking);
             localStorage.setItem("bookings", JSON.stringify(bookings));
             localStorage.setItem("latestBooking", JSON.stringify(booking));
-            window.location.href = "confirmation.html";
+            sessionStorage.setItem("pendingBookingId", booking.id);
+            window.location.href =
+                "confirmation.html?booking=" + encodeURIComponent(booking.id);
         } catch (error) {
             console.error("Booking could not be saved.", error);
             alert("Your browser could not save this booking. Please enable site storage and try again.");
