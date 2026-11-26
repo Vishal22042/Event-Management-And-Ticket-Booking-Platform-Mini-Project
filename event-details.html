@@ -36,34 +36,33 @@
         <img
             src="images/events/live-music.jpg"
             alt="Live Music Festival"
-            class="details-image"
+            class="details-image" id="detailsImage"
         >
 
         <div class="details-content">
 
-            <h1>Live Music Festival</h1>
+            <h1 id="detailsTitle">Live Music Festival</h1>
 
             <p>
-                Experience an exciting live music festival featuring
-                performances, entertainment and an energetic atmosphere.
+                <span id="detailsDescription">Experience an exciting live music festival featuring performances, entertainment and an energetic atmosphere.</span>
             </p>
 
             <div class="info-box">
-                <p><strong>Date:</strong> 20 October 2026</p>
-                <p><strong>Time:</strong> 6:00 PM onwards</p>
-                <p><strong>Location:</strong> New Delhi</p>
+                <p><strong>Date:</strong> <span id="detailsDate">20 October 2026</span></p>
+                <p><strong>Time:</strong> <span id="detailsTime">6:00 PM onwards</span></p>
+                <p><strong>Location:</strong> <span id="detailsLocation">New Delhi</span></p>
             </div>
 
             <h2>Event Highlights</h2>
 
-            <ul>
+            <ul id="detailsHighlights">
                 <li>Live musical performances</li>
                 <li>Entertainment activities</li>
                 <li>Food and refreshment areas</li>
                 <li>Multiple ticket categories</li>
             </ul>
 
-            <a href="tickets.html" class="book-btn">
+            <a href="tickets.html" id="detailsTicketLink" class="book-btn">
                 View Tickets
             </a>
 
@@ -77,5 +76,6 @@
     <p>&copy; 2026 EventHub. All Rights Reserved.</p>
 </footer>
 
+<script src="js/event-details.js"></script>
 </body>
 </html>

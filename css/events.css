@@ -66,3 +66,19 @@
         padding: 30px 5%;
     }
 }
+
+.event-search {
+    max-width: 560px;
+    margin: 25px auto 0;
+    padding: 0 20px;
+}
+.event-search input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+}
+.event-card[hidden], #noEventsMessage[hidden] { display: none !important; }
+.event-card { transition: transform .2s ease, box-shadow .2s ease; }
+.event-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.12); }
