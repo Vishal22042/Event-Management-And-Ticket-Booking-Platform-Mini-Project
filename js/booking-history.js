@@ -15,10 +15,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let confirmed = 0;
     let pending = 0;
+    let validCount = 0;
     list.replaceChildren();
 
     bookings.slice().reverse().forEach(function (booking) {
-        if (!booking || typeof booking !== "object") return;
+        if (!booking || typeof booking !== "object" || !booking.id) return;
+        validCount++;
 
         // Older records without a status were created by the original booking form.
         const status = booking.status || "Confirmed";
@@ -63,11 +65,11 @@ document.addEventListener("DOMContentLoaded", function () {
         list.appendChild(card);
     });
 
-    totalEl.textContent = bookings.length;
+    totalEl.textContent = validCount;
     confirmedEl.textContent = confirmed;
     pendingEl.textContent = pending;
 
-    if (bookings.length === 0) {
+    if (validCount === 0) {
         const empty = document.createElement("p");
         empty.className = "empty-bookings";
         empty.textContent = "No bookings found. Book your first event!";
