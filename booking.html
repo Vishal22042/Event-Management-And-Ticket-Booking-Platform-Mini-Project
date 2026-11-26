@@ -42,24 +42,28 @@
                 Fill in the details below to continue with your booking.
             </p>
 
-            <form action="confirmation.html" method="get">
+            <!-- Updated Booking Form -->
+
+            <form id="bookingForm">
 
                 <label for="name">Full Name</label>
-
                 <input
                     type="text"
                     id="name"
                     name="name"
-                    placeholder="Enter your name"
+                    autocomplete="name"
+                    maxlength="80"
+                    placeholder="Enter your full name"
                     required
                 >
 
                 <label for="email">Email Address</label>
-
                 <input
                     type="email"
                     id="email"
                     name="email"
+                    autocomplete="email"
+                    maxlength="120"
                     placeholder="Enter your email"
                     required
                 >
@@ -67,7 +71,6 @@
                 <label for="event">Select Event</label>
 
                 <select id="event" name="event" required>
-                    <option value="">Choose an event</option>
                     <option value="Live Music Festival">
                         Live Music Festival
                     </option>
@@ -85,14 +88,13 @@
                 <label for="ticket">Ticket Type</label>
 
                 <select id="ticket" name="ticket" required>
-                    <option value="">Choose ticket type</option>
-                    <option value="Regular - ₹499">
+                    <option value="Regular" data-price="499">
                         Regular - ₹499
                     </option>
-                    <option value="Premium - ₹999">
+                    <option value="Premium" data-price="999">
                         Premium - ₹999
                     </option>
-                    <option value="VIP - ₹1,999">
+                    <option value="VIP" data-price="1999">
                         VIP - ₹1,999
                     </option>
                 </select>
@@ -103,11 +105,16 @@
                     type="number"
                     id="quantity"
                     name="quantity"
+                    inputmode="numeric"
                     min="1"
                     max="10"
                     value="1"
                     required
                 >
+
+                <p id="totalPrice">
+                    Total Amount: ₹499
+                </p>
 
                 <button type="submit">
                     Confirm Booking
@@ -124,6 +131,8 @@
 <footer>
     <p>&copy; 2026 EventHub. All Rights Reserved.</p>
 </footer>
+
+<script src="js/booking.js"></script>
 
 </body>
 </html>
