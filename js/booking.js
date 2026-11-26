@@ -19,17 +19,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function calculateTotal() {
-        const option = ticketSelect.options[ticketSelect.selectedIndex];
-        const price = Number(option && option.dataset.price);
-        const quantity = Number(quantityInput.value);
-        const valid = Number.isFinite(price) && Number.isInteger(quantity) &&
-            quantity >= 1 && quantity <= 10;
+    
+function calculateTotal() {
+    const option = ticketSelect.options[ticketSelect.selectedIndex];
 
-        totalPrice.textContent = valid
-            ? "Total Amount: ₹" + (price * quantity).toLocaleString("en-IN")
-            : "Total Amount: —";
-    }
+    const price = Number(option && option.dataset.price);
+    const quantity = Number(quantityInput.value);
+
+    const valid = Number.isFinite(price) &&
+        Number.isInteger(quantity) &&
+        quantity >= 1 &&
+        quantity <= 100;
+
+    totalPrice.textContent = valid
+        ? "Total Amount: ₹" +
+          (price * quantity).toLocaleString("en-IN")
+        : "Total Amount: —";
+}
+
 
     // Restore a ticket and/or event selected on the previous page.
     try {
